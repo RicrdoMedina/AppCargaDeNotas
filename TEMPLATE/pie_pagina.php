@@ -101,40 +101,6 @@
 				}
 			});
 
-			//Cargar dinamicamente de evaluaciones
-			$("#cargarEvaluacion").change(function(){
-			    var valor = $(this).val();
-			    var i = 0;
-			    var elementos = $( "#mostrarEvaluaciones #contenedorEvaluaciones").size();
-			    var total = valor - elementos;
-
-			    var patron = /^\d*$/; 
-			    
-
-              	//Si el numero es negativo
-              	//Se eliminan elementos
-				if( ! patron.test(total)){   
-					           
-					total = total * (-1);
-					while (i < total){
-						i++; 
-						var ultimo = $("#mostrarEvaluaciones #contenedorEvaluaciones").last();
-						ultimo.remove();
-					}
-				}else{
-
-					while (i < total){
-						i++;
-						var last = $("#mostrarEvaluaciones #contenedorEvaluaciones").size();
-						//alert(last);
-						//console.log(last);
-						$("#contenedorEvaluaciones").clone().appendTo("#mostrarEvaluaciones").show().attr("class","evaluacion"+last).addClass('zebra');
-						$("."+"evaluacion"+last+" .evaluacion").attr("name","evaluacion"+last).val('');
-						$("."+"evaluacion"+last+" .porcentaje").attr("name","porcentaje"+last).val('');
-						$("."+"evaluacion"+last+" .nota").attr("name","nota"+last).val('');
-					}
-				}
-			});
 
 			//Cargar dinamicamente las materias
 			$("#cargarSeccion").change(function(){
@@ -244,24 +210,6 @@
 			 	}
 			 	
 			 });
-
-			 $('#generarPdf').click(function(){
-
-		        var dataString = $('#planEvaluacion').serialize();
-
-		        alert('Datos serializados: '+dataString);
-
-		        $.ajax({
-		            type: "POST",
-		            url: "PHP/reporte/plan_evaluacion.php",
-		            data: dataString,
-		            success: function(data) {
-
-		            }
-		        });
-
-		        window.open('PHP/reporte/plan_evaluacion.php','_blank');
-		    });
 		});
 	</script>
 </body>

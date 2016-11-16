@@ -4,12 +4,11 @@
 		require_once('PHP/validar_usuario.php');
 		$bd = Db::getInstance();
 
-		if(! empty($_POST['secc'])){
 
-			$id_mat = $_POST['mat'];
+		@$id_mat = $_POST['mat'];
 
-			$id_sec= $_POST['secc'];
-		}
+		@$id_sec= $_POST['secc'];
+
 
 		if(! empty($_POST['cantidad_estudiantes'])){
 			for ($i=1; $i <= $_POST['cantidad_estudiantes']; $i++) { 
@@ -45,16 +44,71 @@
 		<section class="contenedor">
 			<form method="post">
 				<div class="contenedor-form">
-					<fieldset>
-					<legend><i class="fa fa-hand-o-right" aria-hidden="true"></i> Consultar ó Editar Notas</legend>
-						
+						<fieldset>
+						<legend><i class="fa fa-hand-o-right" aria-hidden="true"></i> Buscar</legend>
 						<span class="span-inline">
-							<label for="mat">Materia</label>
-							<select  class="mat" id="mat" name="mat" onchange="form.submit()" required>
+							<label for="seccion_alumno">Sección</label>
+							<select id="seccion_alumno" class="notas" name="secc" onchange="form.submit()" required>
 							   <?php
 
-							   if(empty($_POST['mat'])){
+							   if(empty($_POST['secc'])){
 
+									$ci_usuario;
+									/*Creamos una query sencilla*/
+									$sql = "select usu_mat.cedula_profesor, usu_mat.id_materia, mat.id_mat, mat.nombre_materia, secc.id_secc, secc.nombre_seccion from usuario_materias as usu_mat,materias as mat,secciones as secc where usu_mat.cedula_profesor = $ci_usuario and usu_mat.id_materia=2 and usu_mat.id_materia = mat.id_mat and secc.id_secc = usu_mat.id_seccion";
+
+									/*Ejecutamos la query*/
+									$stmt = $bd->ejecutar($sql);
+
+									echo "<option value='' selected='selected'> ---- </option>";
+									
+									/*Realizamos un bucle para ir obteniendo los resultados*/
+									while ($x=$bd->obtener_fila($stmt,0)){
+
+									?>
+										<option value='<?php echo $x['id_secc']; ?>'>Sección <?php echo $x['nombre_seccion']; ?></option>
+									<?php
+									}
+
+								}else{
+									$ci_usuario;
+									/*Creamos una query sencilla*/
+									$sql = "select usu_mat.cedula_profesor, usu_mat.id_materia, mat.id_mat, mat.nombre_materia, secc.id_secc, secc.nombre_seccion from usuario_materias as usu_mat,materias as mat,secciones as secc where usu_mat.cedula_profesor = $ci_usuario and usu_mat.id_materia=2 and usu_mat.id_materia = mat.id_mat and secc.id_secc = usu_mat.id_seccion";
+
+									/*Ejecutamos la query*/
+									$stmt = $bd->ejecutar($sql);
+									
+									/*Realizamos un bucle para ir obteniendo los resultados*/
+									while ($x=$bd->obtener_fila($stmt,0)){
+										if($_POST['secc'] == $x['id_secc']){
+									?>
+										<option value='<?php echo $x['id_secc']; ?>' <?php echo" selected='selected'"; ?>>Sección <?php echo $x['nombre_seccion']; ?></option>
+									<?php
+										}else{
+									?>
+										<option value='<?php echo $x['id_secc']; ?>'>Sección <?php echo $x['nombre_seccion']; ?></option>
+									<?php
+										}
+
+									?>
+									<?php
+									}
+								}
+
+								?>
+
+							</select>
+						</span>
+						<?php
+							if(!empty($_POST['secc'])){
+						?>
+
+						<span class="span-inline">
+							<label for="id_materia">Materia</label>
+							<select id="id_materia" class="notas" name="mat" onchange="form.submit()" required>
+							   <?php
+							   if(empty($_POST['mat'])){
+									$ci_usuario;
 									/*Creamos una query sencilla*/
 									$sql = "select us.cedula, us.rol, usu_mat.cedula_profesor, usu_mat.id_materia, usu_mat.id_seccion,
 									mat.id_mat, mat.nombre_materia, secc.id_secc,secc.nombre_seccion from usuarios as us, 
@@ -63,7 +117,7 @@
 									and usu_mat.id_seccion = secc.id_secc and us.cedula = $ci_usuario order by mat.nombre_materia asc";
 
 									/*Ejecutamos la query*/
-									$stmt=$bd->ejecutar($sql);
+									$stmt = $bd->ejecutar($sql);
 
 									echo "<option value='' selected='selected'> ---- </option>";
 									
@@ -74,9 +128,8 @@
 										<option value='<?php echo $x['id_mat']; ?>'><?php echo $x['nombre_materia']; ?></option>
 									<?php
 									}
-
-								}
-								else{
+								}else{
+									$ci_usuario;
 									/*Creamos una query sencilla*/
 									$sql = "select us.cedula, us.rol, usu_mat.cedula_profesor, usu_mat.id_materia, usu_mat.id_seccion,
 									mat.id_mat, mat.nombre_materia, secc.id_secc,secc.nombre_seccion from usuarios as us, 
@@ -85,7 +138,7 @@
 									and usu_mat.id_seccion = secc.id_secc and us.cedula = $ci_usuario order by mat.nombre_materia asc";
 
 									/*Ejecutamos la query*/
-									$stmt=$bd->ejecutar($sql);
+									$stmt = $bd->ejecutar($sql);
 									
 									/*Realizamos un bucle para ir obteniendo los resultados*/
 									while ($x=$bd->obtener_fila($stmt,0)){
@@ -98,67 +151,19 @@
 										<option value='<?php echo $x['id_mat']; ?>'><?php echo $x['nombre_materia']; ?></option>
 									<?php
 										}
+
+									?>
+									<?php
 									}
 								}
-
 								?>
-							</select>
-						</span>
-						<?php
-							if(!empty($_POST['mat'])){
-						?>
 
-						<span class="span-inline">
-							<label for="seccion">Sección</label>
-							<select  class="seccion" id="seccion" name="secc" onchange="form.submit()" required>
-							   <?php
-
-							   if(empty($_POST['secc'])){
-
-								/*Creamos una query sencilla*/
-									$sql = "select usu_mat.cedula_profesor, usu_mat.id_materia, mat.id_mat, mat.nombre_materia, secc.id_secc, secc.nombre_seccion from usuario_materias as usu_mat,materias as mat,secciones as secc where usu_mat.cedula_profesor = $ci_usuario and usu_mat.id_materia=2 and usu_mat.id_materia = mat.id_mat and secc.id_secc = usu_mat.id_seccion";
-
-									/*Ejecutamos la query*/
-									$stmt=$bd->ejecutar($sql);
-
-									echo "<option value='' selected='selected'> ---- </option>";
-									
-									/*Realizamos un bucle para ir obteniendo los resultados*/
-									while ($x=$bd->obtener_fila($stmt,0)){
-
-									?>
-										<option value='<?php echo $x['id_secc']; ?>'><?php echo $x['nombre_seccion']; ?></option>
-									<?php
-									}
-								}else{
-									/*Creamos una query sencilla*/
-									$sql = "select usu_mat.cedula_profesor, usu_mat.id_materia, mat.id_mat, mat.nombre_materia, secc.id_secc, secc.nombre_seccion from usuario_materias as usu_mat,materias as mat,secciones as secc where usu_mat.cedula_profesor = $ci_usuario and usu_mat.id_materia=2 and usu_mat.id_materia = mat.id_mat and secc.id_secc = usu_mat.id_seccion";
-
-									/*Ejecutamos la query*/
-									$stmt=$bd->ejecutar($sql);
-									
-									/*Realizamos un bucle para ir obteniendo los resultados*/
-									while ($x=$bd->obtener_fila($stmt,0)){
-										if($_POST['secc'] == $x['id_secc']){
-									?>
-										<option value='<?php echo $x['id_secc']; ?>' <?php echo" selected='selected'"; ?>><?php echo $x['nombre_seccion']; ?></option>
-									<?php
-										}else{
-									?>
-										<option value=''> ---- </option>
-									<?php
-										}
-									}
-								}
-
-								?>
 							</select>
 						</span>
 						<?php
 							}
 						?>
-					</fieldset>
-				</div>
+					</div>
 			</form>
 				<?php
 				if (! empty($insercion)) {

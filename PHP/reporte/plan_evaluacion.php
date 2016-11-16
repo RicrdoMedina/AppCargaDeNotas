@@ -97,17 +97,13 @@ $bd = Db::getInstance();
 
 $html.='<br><br><br><br>';
 
-$html.='<table style="font-size:25px" width="100%" border="1" cellpadding="0" cellspacing="0" >
-			<tr>
-			   <td width="100%" align="center">
-			   		UNIDAD EDUCATIVA FELIPE FERMIN PAUL<br>
+$html.='<div style="font-size:25px; width:100%;  border-top:1px solid #000; border-bottom:1px solid #000; text-align:center;">
+			   		<b>UNIDAD EDUCATIVA FELIPE FERMIN PAUL</b><br>
 			   		Caracas - Antimano<br>
 			   		Año Escolar<br>
 			   		2016-2017
-			   	</td>
-            </tr>';
+            </div>';
 
-$html.='</table>';
 $html.='<table width="100%" border="1" cellpadding="0" cellspacing="0">
 			<tr>
 			   <td width="100%" align="left"> <span style="font-size:25px">Profesor:'. $Sesion->get('fullname').'</span></td>
@@ -117,10 +113,14 @@ $html.='<table width="100%" border="1" cellpadding="0" cellspacing="0">
             </tr>';
 
 $html.='    <tr>
-			   <td width="25%" align="center">NRO°</td>
-			   <td width="25%" align="center">EVALUACIÓN</td>
-			   <td width="25%" align="center">%</td>
-			   <td width="25%" align="center">NOTA OBTENIDA</td>
+			   <td width="3%" align="center">NRO°</td>
+			   <td width="31%" align="center">Nombre y Apellido</td>
+			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Interrogatorio</td>
+			   <td width="5%" align="center">%</td>
+			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Prueba Corta</td>
+			   <td width="5%" align="center">%</td>
+			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Prueba Oral</td>
+			   <td width="5%" align="center">%</td>
             </tr>';
 
 
@@ -128,10 +128,14 @@ if(! empty($_POST)){
 	for ($i=0; $i < $_POST['cantidad_evaluaciones']; $i++) { 
 			$c=1;
 			$html.='<tr>
-			   <td width="25%" align="center">'.$t = $c + $i.'</td>
-			   <td width="25%" align="center">'.$_POST['evaluacion'.$i].'</td>
-			   <td width="25%" align="center">'.$_POST['porcentaje'.$i].'</td>
-			   <td width="25%" align="center">'.$_POST['nota'.$i].'</td>
+			   <td width="3%" align="center">'.$t = $c + $i.'</td>
+			   <td width="31%" align="center"></td>
+			   <td width="17%" align="center"></td>
+			   <td width="5%" align="center"></td>
+			   <td width="17%" align="center"></td>
+			   <td width="5%" align="center"></td>
+			   <td width="17%" align="center"></td>
+			   <td width="5%" align="center"></td>
             </tr>';
 	}
 }
@@ -148,20 +152,33 @@ $html.='    <tr>
 			   <td width="100%" align="center">Academicas de el liceo U.E.N Felipe Fermin Paul.</td>
             </tr>';
 
-$html.='<br><br><br><br><br><br><br><br>';
+$html.='</table><br><br><br><br>';
 
-$html.='    <tr>
-			   <td width="100%" align="center">__________________________________</td>
-			</tr>
-			<tr>
-			   <td width="100%" align="center">Firma del Profesor:</td>
-			</tr>
-			<tr>
-			   <td width="100%" align="center">CI: '.$ci_usuario.'</td>
-            </tr>
-            <tr>
-			   <td width="100%" align="center">Fecha: '.date('d/m/Y').'</td>
-			</tr>';
+$html.='<table style="font-size:25px; margin-top:10px;" align="center" width="100%" border="0" cellpadding="0" cellspacing="0">';
+
+$html.='
+        <tr>
+			<td width="35%" align="center">___________________</td>
+			<td width="35%" align="center"></td>
+			<td width="20%" align="center" rowspan="4" border="1"></td>
+        </tr>
+         <tr>
+			<td width="35%" align="center">Firma del Profesor</td>
+			<td width="35%" align="center"></td>
+        </tr>
+        <tr>
+			<td width="35%" align="center">CI: '.$ci_usuario.'</td>
+			<td width="35%" align="center"></td>
+        </tr>
+        <tr>
+			<td width="35%" align="center">Fecha: '.date('d/m/Y').'</td>
+			<td width="35%" align="center">Sección: _____________________</td>
+        </tr>
+        <tr>
+			<td width="35%" align="center"></td>
+			<td width="35%" align="center"></td>
+			<td width="20%" align="center">Sello de la institución</td>
+        </tr>';
 
 $html.='</table>';
 
