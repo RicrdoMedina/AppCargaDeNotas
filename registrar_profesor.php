@@ -52,7 +52,7 @@
 				for($i=0; $i < $_POST['cantidad_materias']; $i++) { 
 			    	//echo $_POST['materia' . $i];
 
-			    	$sqlw = "select * from usuario_materias where id_materia = '".$_POST['materia' . $i]."' and id_seccion = '".$_POST['seccion' . $i]."'";
+			    	$sqlw = "select * from usuario_materias where id_materia = '".$_POST['mimpartida' . $i]."' and id_seccion = '".$_POST['seccion' . $i]."'";
 			    	$stmtw = $bd->ejecutar($sqlw);
 
 			    	if(!$w=$bd->obtener_fila($stmtw,0)){
@@ -95,7 +95,7 @@
 
 			    	for ($i=0; $i < $_POST['cantidad_materias']; $i++) { 
 			    		//echo $_POST['materia' . $i];
-			    		$sqlu = "insert into usuario_materias values('','".$_POST['ci']."','".$_POST['materia' . $i]."','".$_POST['seccion' . $i]."')";
+			    		$sqlu = "insert into usuario_materias values('','".$_POST['ci']."','".$_POST['mimpartida' . $i]."','".$_POST['seccion' . $i]."')";
 			    		$bd->ejecutar($sqlu);
 			    	}
 
@@ -146,7 +146,7 @@
 					<div class="form">
 						<span class="span-block">
 							<label for="ci">Cédula</label>
-							<input type="text" id="ci" name="ci" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula" required/>
+							<input type="number" id="ci" name="ci" class="cedula" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula" required/>
 						</span>
 						<span class="span-block">
 							<label for="pnombre">Nombres</label>
@@ -169,11 +169,11 @@
 						</span>
 						<span class="span-block">
 							<label for="tmovil">Telefono Movil</label>
-							<input type="text" id="tmovil" name="tmovil" value="<?php if(! empty($_POST)) { echo $_POST['tmovil'];} ?>" placeholder="4XX2314432" required/>
+							<input type="number" id="tmovil" name="tmovil" class="cedula" value="<?php if(! empty($_POST)) { echo $_POST['tmovil'];} ?>" placeholder="4XX2314432" required/>
 						</span>
 						<span class="span-block">
 							<label for="tlocal">Telefono Local</label>
-							<input type="text" id="tlocal" name="tlocal" value="<?php if(! empty($_POST)) { echo $_POST['tlocal'];} ?>" placeholder="2XX3214567" required/>
+							<input type="number" id="tlocal" name="tlocal" class="cedula" value="<?php if(! empty($_POST)) { echo $_POST['tlocal'];} ?>" placeholder="2XX3214567" required/>
 						</span>
 						<span class="span-block">
 							<label for="direccion">Direccion</label>
@@ -188,9 +188,9 @@
 					<legend><i class="fa fa-hand-o-right" aria-hidden="true"></i> Materia impartida</legend>
 					<span class="span-block">
 						<label for="cmateria">Catidad de Materias</label>
-						<input type="number" min="0" max="5" id="cmateria" name="cantidad_materias" value=""  placeholder="0" required>
+						<input type="number" min="0" max="5" id="cantidadItems" data-id="cargar-materias-impartidas" name="cantidad_materias" value=""  placeholder="0" required>
 					</span>
-					<div class="mostrarMaterias" id="mostrarMaterias">
+					<div class="showElements" id="showElements">
 						
 					</div>
 					</fieldset>
@@ -205,7 +205,7 @@
 			</form>
 
 		</section>
-					<div id="contenedorMaterias" style="display:none;">
+					<div id="containerElements" style="display:none;">
 						<span class="span-inline">
 							<label for="secciones">Sección</label>
 							<select  class="seccion" id="seccion" name="" required>

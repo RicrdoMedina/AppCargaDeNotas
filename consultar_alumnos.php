@@ -203,7 +203,7 @@
 			                			</td>
 			                            <td>
 			                            	<input type="hidden" name="ci_alumno_<?php echo $i; ?>" value="<?php echo $x['cedula_alumno']; ?>" />
-			                            	<input type="text" class="disabled <?php echo $x['cedula_alumno']; ?>" name="cedula_<?php echo $i; ?>" value="<?php echo $x['cedula_alumno']; ?>" placeholder="Cédula del alumno" required/>
+			                            	<input type="number" class="cedula-u disabled <?php echo $x['cedula_alumno']; ?>" name="cedula_<?php echo $i; ?>" value="<?php echo $x['cedula_alumno']; ?>" placeholder="Cédula del alumno" required/>
 			                            </td>
 			                            <td class="center">
 			                            	<input type="text" class="disabled <?php echo $x['cedula_alumno']; ?>" name="nombres_<?php echo $i; ?>" value="<?php echo $x['primer_nombre']." ".$x['segundo_nombre']; ?>" placeholder="Nombres del alumno" required/>

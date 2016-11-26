@@ -33,7 +33,7 @@ class MYPDF extends TCPDF {
 }
 
 
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true,'UTF-8', false);
+$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true,'UTF-8', false);
 
 // set document information
 
@@ -93,9 +93,6 @@ $html = "";
 
 $bd = Db::getInstance();
 
-///////////DATOS DEL BOLETIN//////////
-
-$html.='<br><br><br><br>';
 
 $html.='<div style="font-size:25px; width:100%;  border-top:1px solid #000; border-bottom:1px solid #000; text-align:center;">
 			   		<b>UNIDAD EDUCATIVA FELIPE FERMIN PAUL</b><br>
@@ -104,7 +101,7 @@ $html.='<div style="font-size:25px; width:100%;  border-top:1px solid #000; bord
 			   		2016-2017
             </div>';
 
-$html.='<table width="100%" border="1" cellpadding="0" cellspacing="0">
+$html.='<table style="font-size:20px" width="100%" border="1" cellpadding="0" cellspacing="0">
 			<tr>
 			   <td width="100%" align="left"> <span style="font-size:25px">Profesor:'. $Sesion->get('fullname').'</span></td>
             </tr>
@@ -113,32 +110,40 @@ $html.='<table width="100%" border="1" cellpadding="0" cellspacing="0">
             </tr>';
 
 $html.='    <tr>
-			   <td width="3%" align="center">NRO°</td>
-			   <td width="31%" align="center">Nombre y Apellido</td>
-			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Interrogatorio</td>
-			   <td width="5%" align="center">%</td>
-			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Prueba Corta</td>
-			   <td width="5%" align="center">%</td>
-			   <td width="17%" align="center"><b>EVALUACIÓN</b><br>Prueba Oral</td>
-			   <td width="5%" align="center">%</td>
-            </tr>';
+			   <td width="2%" align="center">N°</td>
+			   <td width="18%" align="center">Nombre y Apellido</td>';
 
 
-if(! empty($_POST)){
-	for ($i=0; $i < $_POST['cantidad_evaluaciones']; $i++) { 
-			$c=1;
-			$html.='<tr>
-			   <td width="3%" align="center">'.$t = $c + $i.'</td>
-			   <td width="31%" align="center"></td>
-			   <td width="17%" align="center"></td>
-			   <td width="5%" align="center"></td>
-			   <td width="17%" align="center"></td>
-			   <td width="5%" align="center"></td>
-			   <td width="17%" align="center"></td>
-			   <td width="5%" align="center"></td>
-            </tr>';
-	}
-}
+			for ($i=0; $i < $_POST['cantidad_evaluaciones']; $i++) { 
+				$col = (80 / $_POST['cantidad_evaluaciones']) - 3;
+				$html.='
+					<td width="'.$col.'%" align="center" style="font-size:16px"><b>EVALUACIÓN</b><br><b>'.$_POST['evaluacion'.$i].'</b></td>
+			   		<td width="3%" align="center">'.$_POST['porcentaje'.$i].'%</td>
+			   	';
+            }
+
+$html.=' 	</tr>';
+
+
+
+			for ($i=0; $i < $_POST['cantidad_estudiantes']; $i++) { 
+			$html.='    <tr>';
+				$c=1;
+				$html.='
+			   		<td width="2%" align="center">'.$t = $c + $i.'</td>
+			   		<td width="18%" align="center"></td>';
+			   	
+			   	for ($cont=0; $cont < $_POST['cantidad_evaluaciones']; $cont++) { 
+					$col = (80 / $_POST['cantidad_evaluaciones']) - 3;
+					$html.='
+						<td width="'.$col.'%" align="center"></td>
+			   			<td width="3%" align="center"></td>
+			   		';
+            	}
+            $html.=' 	</tr>';
+			}
+
+
 
 $html.='</table>';
 

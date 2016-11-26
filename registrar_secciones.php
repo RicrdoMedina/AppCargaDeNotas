@@ -56,9 +56,9 @@
 					<div class="form">
 						<span class="span-block">
 							<label for="cmateria">Ingrese número de secciones</label>
-							<input type="number" min="0" max="20" id="cargarSeccion" name="cantidad_secciones" placeholder="0" required>
+							<input type="number" min="0" max="20" id="cantidadItems" data-id="cargar-secciones" name="cantidad_secciones" placeholder="0" required>
 						</span>
-						<div class="mostrarSecciones" id="mostrarSecciones">
+						<div class="showElements" id="showElements">
 							
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 
 		</section>
 
-		<div id="contenedorSecciones" style="display:none;">
+		<div id="containerElements" style="display:none;">
 			<span class="span-block">
 				<label for="seccion">Sección</label>
 				<input type="text" id="seccion" class="seccion" name="" placeholder="Identifique la sección" required/>

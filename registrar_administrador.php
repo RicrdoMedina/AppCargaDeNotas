@@ -96,7 +96,7 @@
 	
 						<span class="span-inline">
 							<label for="ci">Cédula</label>
-							<input type="text" id="ci" name="ci" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula" required/>
+							<input type="number" id="ci" name="ci" class="cedula" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula" required/>
 						</span>
 						<span class="span-inline">
 							<label for="pnombre">Nombres</label>

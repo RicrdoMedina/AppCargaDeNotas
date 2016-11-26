@@ -11,7 +11,6 @@
 	</footer>
 
 	<script src="JS/jquery.js"></script>
-	<script src="JS/tabs.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -33,17 +32,56 @@
 				      $(this).removeClass("open");	
 				}
 			});
+			//Sumarlos porcentajes acumulados y mostrarlos
+			$(document).on('change','#showElements input.porcentaje',function(e){
 
-			//Cargar dinamicamente las materias de los profesores
-			$("#cmateria").change(function(){
+                 var total = $("#showElements input.porcentaje").size();
+
+                	var temp = 0;
+
+			        var add = 0;  
+
+			        var totalPorcentaje = Number($("#totalPorcentaje").val());    
+
+                for (var i = 0; i < total; i++) {
+                	id = 'input[name=porcentaje'+i+']';
+                	element = $(id).val();
+                	
+                	add += temp + Number(element);
+                	//console.log('input[name=porcentaje'+i);
+                };
+
+                if(totalPorcentaje === 99){ 
+                	$("#crearPlan").show();
+                	$("#msjError").hide();
+                }else if(totalPorcentaje >= 99){
+                	$("#crearPlan").hide();
+                	$("#msjError").show();
+                }else if(totalPorcentaje <= 99){
+                	$("#crearPlan").hide();
+                }
+                
+
+                //console.log(add);
+                $(".mostrarPorcentaje").html(add);
+                $("#totalPorcentaje").val(add);
+			});
+
+			//Cargar dinamicamente elementos
+			$("#cantidadItems").change(function(){
 			    var valor = $(this).val();
+			    var id = $(this).attr("data-id");
 			    var i = 0;
-			    var elementos = $( "#mostrarMaterias #contenedorMaterias").size();
+			    var elementos = $( "#showElements #containerElements").size();
 			    var total = valor - elementos;
+			    var estudiante = ['ci','pnombre','papellido','nombres_representate','apellidos_representate'];
+			    var seccion = ['seccion'];
+			    var evaluacion = ['evaluacion','porcentaje'];
+			    var materia = ['materia'];
+			    var materiaImpartida = ['mimpartida','seccion'];
 
 			    var patron = /^\d*$/; 
 			    
-
               	//Si el numero es negativo
               	//Se eliminan elementos
 				if( ! patron.test(total)){   
@@ -51,128 +89,58 @@
 					total = total * (-1);
 					while (i < total){
 						i++; 
-						var ultimo = $("#mostrarMaterias #contenedorMaterias").last();
+						var ultimo = $("#showElements #containerElements").last();
+						if(id == 'cargar-evaluacion'){
+							var ultimoElement = $("#showElements input.porcentaje").last();
+							var valorUltimoElement = ultimoElement[0].value;
+						}
 						ultimo.remove();
 					}
+
+					
+					if(id == 'cargar-evaluacion'){
+						var totalPorcentajeAcu = $("#totalPorcentaje").val();
+						var resultadoPorcentaje = (Number(valorUltimoElement ) - Number(totalPorcentajeAcu)) * (-1);
+						$("#totalPorcentaje").attr("value",resultadoPorcentaje);
+						$(".mostrarPorcentaje").html(resultadoPorcentaje);
+					}
+
 				}else{
 
 					while (i < total){
 						i++;
-						var last = $("#mostrarMaterias #contenedorMaterias").size();
-						//alert(last);
-						//console.log(last);
-						$("#contenedorMaterias").clone().appendTo("#mostrarMaterias").show().attr("class","materia"+last).addClass('zebra');
-						$("."+"materia"+last+" .mimpartida").attr("name","materia"+last);
-						$("."+"materia"+last+" .seccion").attr("name","seccion"+last);
+						var last = $("#showElements #containerElements").size();
+						$("#containerElements").clone().appendTo("#showElements").show().attr("class","element"+last).addClass('zebra');
+						
+						
+						if(id == 'cargar-estuadiantes'){
+							writeNameAtributesInput(last,estudiante);
+						}
+						else if(id == 'cargar-secciones'){
+							writeNameAtributesInput(last,seccion);
+						}
+						else if(id == 'cargar-materias'){
+							writeNameAtributesInput(last,materia);
+						}
+						else if(id == 'cargar-materias-impartidas'){
+							writeNameAtributesInput(last,materiaImpartida);
+						}
+						else if(id == 'cargar-evaluacion'){
+							writeNameAtributesInput(last,evaluacion);
+						}
 					}
 				}
 			});
 
-			//Cargar dinamicamente las materias
-			$("#cargarMateria").change(function(){
-			    var valor = $(this).val();
-			    var i = 0;
-			    var elementos = $( "#mostrarMaterias #contenedorMaterias").size();
-			    var total = valor - elementos;
+			//Escribir atributos name dinamicamente para luego extraer el valor del input con PHP
+			var writeNameAtributesInput = function(iterador,atributeInputs){
+				var cont = 0;
 
-			    var patron = /^\d*$/; 
-			    
-
-              	//Si el numero es negativo
-              	//Se eliminan elementos
-				if( ! patron.test(total)){   
-					           
-					total = total * (-1);
-					while (i < total){
-						i++; 
-						var ultimo = $("#mostrarMaterias #contenedorMaterias").last();
-						ultimo.remove();
-					}
-				}else{
-
-					while (i < total){
-						i++;
-						var last = $("#mostrarMaterias #contenedorMaterias").size();
-						//alert(last);
-						//console.log(last);
-						$("#contenedorMaterias").clone().appendTo("#mostrarMaterias").show().attr("class","materia"+last).addClass('zebra');
-						$("."+"materia"+last+" .materia").attr("name","materia"+last).val('');
-					}
+				while(cont < atributeInputs.length){
+					$("."+"element"+iterador+" ."+atributeInputs[cont]).attr("name",atributeInputs[cont]+iterador).val('');
+					cont++;
 				}
-			});
-
-
-			//Cargar dinamicamente las materias
-			$("#cargarSeccion").change(function(){
-			    var valor = $(this).val();
-			    var i = 0;
-			    var elementos = $( "#mostrarSecciones #contenedorSecciones").size();
-			    var total = valor - elementos;
-
-			    var patron = /^\d*$/; 
-			    
-
-              	//Si el numero es negativo
-              	//Se eliminan elementos
-				if( ! patron.test(total)){   
-					           
-					total = total * (-1);
-					while (i < total){
-						i++; 
-						var ultimo = $("#mostrarSecciones #contenedorSecciones").last();
-						ultimo.remove();
-					}
-				}else{
-
-					while (i < total){
-						i++;
-						var last = $("#mostrarSecciones #contenedorSecciones").size();
-						//alert(last);
-						//console.log(last);
-						$("#contenedorSecciones").clone().appendTo("#mostrarSecciones").show().attr("class","seccion"+last).addClass('zebra');
-						$("."+"seccion"+last+" .seccion").attr("name","seccion"+last).val('');
-					}
-				}
-			});
-
-			//Cargar dinamicamente los estudiantes
-			$("#cestudiantes").change(function(){
-			    var valor = $(this).val();
-			    var i = 0;
-			    var elementos = $( "#mostrarEstudiantes #contenedorEstudiantes").size();
-			    var total = valor - elementos;
-
-			    var patron = /^\d*$/; 
-			    
-
-              	//Si el numero es negativo
-              	//Se eliminan elementos
-				if( ! patron.test(total)){   
-					           
-					total = total * (-1);
-					while (i < total){
-						i++; 
-						var ultimo = $("#mostrarEstudiantes #contenedorEstudiantes").last();
-						ultimo.remove();
-					}
-				}else{
-
-					while (i < total){
-						i++;
-						var last = $("#mostrarEstudiantes #contenedorEstudiantes").size();
-						//alert(last);
-						//console.log(last);
-						$("#contenedorEstudiantes").clone().appendTo("#mostrarEstudiantes").show().attr("class","estudiante"+last).addClass('zebra');
-						$("."+"estudiante"+last+" .ci").attr("name","ci"+last).val('');
-						$("."+"estudiante"+last+" .pnombre").attr("name","pnombre"+last).val('');
-						$("."+"estudiante"+last+" .snombre").attr("name","snombre"+last).val('');
-						$("."+"estudiante"+last+" .papellido").attr("name","papellido"+last).val('');
-						$("."+"estudiante"+last+" .sapellido").attr("name","sapellido"+last).val('');
-						$("."+"estudiante"+last+" .nombres_representate").attr("name","nombres_representate"+last).val('');
-						$("."+"estudiante"+last+" .apellidos_representate").attr("name","apellidos_representate"+last).val('');
-					}
-				}
-			});
+			};
 
 			//Mostrar dinamicamente tabla de estudiantes
 			$("#notas").change(function(){
@@ -192,6 +160,7 @@
 
 			    })
 			});
+
 
 			$('.disabled').prop('disabled', true);
 

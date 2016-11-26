@@ -56,9 +56,9 @@
 					<div class="form">
 						<span class="span-block">
 							<label for="cmateria">Ingrese número de materias</label>
-							<input type="number" min="0" max="20" id="cargarMateria" name="cantidad_materias" value=""  placeholder="0" required>
+							<input type="number" min="0" max="20" id="cantidadItems" data-id="cargar-materias" value=""  placeholder="0" required>
 						</span>
-						<div class="mostrarMaterias" id="mostrarMaterias">
+						<div class="showElements" id="showElements">
 							
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 
 		</section>
 
-		<div id="contenedorMaterias" style="display:none;">
+		<div id="containerElements" style="display:none;">
 			<span class="span-block">
 				<label for="materia">Materia</label>
 				<input type="text" id="materia" class="materia" name="" value="" placeholder="Nombre de la materia" required/>

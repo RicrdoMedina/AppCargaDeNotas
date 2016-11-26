@@ -314,7 +314,7 @@
 					<div class="form-block">
 						<span class="span-inline">
 							<label for="ci_estudiante">Cédula</label>
-							<input type="text" id="ci_estudiante" class="" name="ci_estudiante" value="<?php if(! empty($estudiante)) { echo $estudiante['cedula_alumno']; } ?>" placeholder="Cédula alumno" required/>
+							<input type="number" id="ci_estudiante" class="cedula" name="ci_estudiante" value="<?php if(! empty($estudiante)) { echo $estudiante['cedula_alumno']; } ?>" placeholder="Cédula alumno" required/>
 							<input type="hidden" name="seccion_estudiante" value="<?php if(! empty($estudiante)) { echo $estudiante['id_secc']; } ?>"/>
 							<input type="hidden" name="materia_estudiante" value="<?php if(! empty($estudiante)) { echo $estudiante['id_mat']; } ?>"/>
 							<input type="hidden" name="status" value="<?php if(! empty($status)) { echo $status; } ?>"/>

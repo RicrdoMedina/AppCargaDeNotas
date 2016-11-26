@@ -674,13 +674,15 @@ textarea{
 	width: 47%;
 }
 .form-evaluacion{
-	width: 50%;
-}
-.form-evaluacion .evaluacion{
 	width: 90%;
-	display: block;
+}
+.form-evaluacion .evaluacion,.form-evaluacion .porcentaje{
+	width: 250px;
 	margin: .5em;
-	height: 100px;
+	height: 25px;
+}
+.form-evaluacion .porcentaje{
+	width: 50px;
 }
 .form-block{
 	padding: 5px;
@@ -716,11 +718,19 @@ textarea{
 	margin: 5px 0px;
 	padding: 5px;
 }
+.inline-input{
+	display:inline-block;
+	vertical-align: top;
+	width: 45%;
+	height: auto;
+	margin: 5px 0px;
+	padding: 5px;
+}
 .span-inline label{
 	display:inline;
 
 }
-.span-inline input{
+.span-inline input, .inline-input input{
 	border-radius:5px;
 	height: 25px;
 	border: 1px solid #CED5D7;
@@ -797,11 +807,7 @@ textarea{
 .materia-impartida input[type=checkbox]{
 	cursor: pointer;
 }
-.span-block input[type=number]{
-	width: 45px;
-	height: 25px;
-	cursor: pointer;
-}
+
 select:focus,textarea:focus,input[type=number]:focus,input[type=text]:focus,input[type=password]:focus,input[type=date]:focus,input[type=mail]:focus{
   border: solid 2px #337ABC;
   background-color: lightgray;
@@ -865,7 +871,7 @@ select:focus,textarea:focus,input[type=number]:focus,input[type=text]:focus,inpu
 	height: auto;
 }
 
-#contenedorMaterias,#contenedorSecciones,#contenedorEstudiantes,#contenedorEvaluaciones{
+#containerElements{
 	margin: 12px auto;
 	width: 95%;
 	border-radius: 10px;
@@ -875,11 +881,16 @@ select:focus,textarea:focus,input[type=number]:focus,input[type=text]:focus,inpu
 .zebra{
 	background-color: #F5F5F5;
 }
-#contenedorEstudiantes{
+#containerElements{
 	margin: 13px auto;
 }
-#contenedorEstudiantes input{
+#containerElements input{
 	margin: 0 10px 10px;
+}
+#containerElements label{
+    font-weight: bold;
+    margin-right: 5px;
+    color: #337DC2;
 }
 
 .table input[type=number],.table input,.table select{
@@ -1036,6 +1047,26 @@ input.check{
    -o-transition:all 0.5s ease-out;
    -webkit-transition:all 0.5s ease-out;
    transition:all 0.5s ease-out;
+}
+.span-block input[type=number],.contenedor-form input.cedula,.contenedor-estudiantes input.cedula-u{
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+}
+.contenedor-form input.cedula{
+	width: 180px;
+}
+.contenedor-estudiantes input.cedula-u{
+	width: 100px;
+}
+.total-porcentaje{
+	background: #5BC0DE;
+	width: 70px;
+	height: 20px;
+	border-radius: 5px;
+	padding: 2px 6px 2px 6px;
+	color: #fff;
+	text-align: center;
 }
 @-webkit-keyframes MiAnimacion {
   25%, 75% {

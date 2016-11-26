@@ -158,9 +158,9 @@
 
 						<span class="span-inline">
 							<label for="cestudiantes">Catidad de estudiantes</label>
-							<input type="number" min="0" max="38" id="cestudiantes" name="cantidad_estudiantes" value="" placeholder="0"  required>
+							<input type="number" min="0" max="38" id="cantidadItems" data-id="cargar-estuadiantes" name="cantidad_estudiantes" value="" placeholder="0"  required>
 						</span>
-						<div class="mostrarEstudiantes" id="mostrarEstudiantes">
+						<div class="showElements" id="showElements">
 						
 						</div>
 
@@ -176,10 +176,10 @@
 
 		</section>
 
-		<div id="contenedorEstudiantes" style="display:none;">
+		<div id="containerElements" style="display:none;">
 			<span class="span-inline">
 				<label for="ci">Cédula</label>
-				<input type="text" id="ci" class="ci" name="ci" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula del Alumno" required/>
+				<input type="number" id="ci" class="ci" name="ci" class="cedula" value="<?php if(! empty($_POST)) { echo $_POST['ci'];} ?>" placeholder="Cédula del Alumno" required/>
 			</span>
 			<div class="form-block">
 				<span class="span-inline">

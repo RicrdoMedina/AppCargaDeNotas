@@ -101,7 +101,7 @@
 						</span>
 							<span class="span-inline">
 							<label for="ci_profesor">Ingrese cédula</label>
-							<input type="text" id="ci_profesor" name="ci_profesor" placeholder="Cédula del profesor" required/>
+							<input type="number" id="ci_profesor" class="cedula" name="ci_profesor" placeholder="Cédula del profesor" required/>
 						</span>
 						<span class="span-inline">
 							<input type="submit" value="Buscar" />
@@ -148,7 +148,7 @@
 								<span class="span-block">
 									<label for="ci">Cédula</label>
 									<input type="hidden" value="<?php if(! empty($x['cedula'])) { echo $x['cedula'];} ?>" name="cedula_bd">
-									<input type="text" id="ci" name="ci" value="<?php if(! empty($x['cedula'])) { echo $x['cedula'];} ?>" placeholder="Cédula" required/>
+									<input type="number" id="ci" name="ci" class="cedula" value="<?php if(! empty($x['cedula'])) { echo $x['cedula'];} ?>" placeholder="Cédula" required/>
 								</span>
 								<span class="span-block">
 									<label for="pnombre">Nombres</label>
@@ -171,11 +171,11 @@
 								</span>
 								<span class="span-block">
 									<label for="tmovil">Telefono Movil</label>
-									<input type="text" id="tmovil" name="tmovil" value="<?php if(! empty($x['telefono_movil'])) { echo $x['telefono_movil'];} ?>" placeholder="4XX2314432" required/>
+									<input type="number" class="cedula" id="tmovil" name="tmovil" value="<?php if(! empty($x['telefono_movil'])) { echo $x['telefono_movil'];} ?>" placeholder="4XX2314432" required/>
 								</span>
 								<span class="span-block">
 									<label for="tlocal">Telefono Local</label>
-									<input type="text" id="tlocal" name="tlocal" value="<?php if(! empty($x['telefono_local'])) { echo $x['telefono_local'];} ?>" placeholder="2XX3214567" required/>
+									<input type="number" class="cedula" id="tlocal" name="tlocal" value="<?php if(! empty($x['telefono_local'])) { echo $x['telefono_local'];} ?>" placeholder="2XX3214567" required/>
 								</span>
 								<span class="span-block">
 									<label for="direccion">Direccion</label>
@@ -196,7 +196,7 @@
 
 							/*Realizamos un bucle para ir obteniendo los resultados*/
 							if($j=$bd->obtener_fila($stmtb,0)){
-	
+							
 						?>
 						<div class="contenedor-form">
 							<fieldset>

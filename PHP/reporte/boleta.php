@@ -32,7 +32,7 @@ class MYPDF extends TCPDF {
 }
 
 
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true,'UTF-8', false);
+$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true,'UTF-8', false);
 
 // set document information
 
@@ -106,7 +106,7 @@ $u=$bd->obtener_fila($stmtu,0);
 
 $html.='<br><br><br><br>';
 
-$html.='<table width="100%" border="1" cellpadding="0" cellspacing="0" >
+$html.='<table width="100%" style="font-size:32px" border="1" cellpadding="0" cellspacing="0" >
 			<tr>
 			   <td width="33%" align="center" rowspan="2">
 			   		UNIDAD EDUCATIVA FELIPE FERMIN PAUL<br>
@@ -130,7 +130,7 @@ $html.='	<tr>
             </tr>';
 
 $html.='</table>';
-$html.='<table width="100%" border="1" cellpadding="0" cellspacing="0" >
+$html.='<table width="100%" style="font-size:32px" border="1" cellpadding="0" cellspacing="0" >
 			<tr>
 			   <td width="33%" align="center" rowspan="2"><h2>Asignaturas</h2></td>
 			   <td width="33%" align="center"><h4>Resumen Academico del alumno correspondiente</h4></td>
